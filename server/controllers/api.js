@@ -1,9 +1,10 @@
 const Todo = require("../models/Todo");
 
 exports.getAllTodos = (req, res, next) => {
-  Todo.find()
+  const id = req.user;
+  Todo.find({ user: id })
     .then((data) => {
-      if (data.length > 1) return res.status(200).json(data);
+      if (data.length > 0) return res.status(200).json(data);
       res.sendStatus(404);
     })
     .catch(() => res.sendStatus(400));
@@ -11,10 +12,11 @@ exports.getAllTodos = (req, res, next) => {
 
 exports.addTodo = (req, res, next) => {
   const { todos } = req.body;
+  const id = req.user;
 
   const newTodo = new Todo({
     todos,
-    user: "615d6e870fa7007574fde44e",
+    user: id,
   });
   newTodo
     .save()
