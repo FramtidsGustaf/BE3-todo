@@ -17,3 +17,10 @@ exports.addTodo = (req, res, next) => {
     .then((data) => res.sendStatus(201))
     .catch((err) => res.sendStatus(400));
 };
+
+exports.deleteTodo = (req, res, next) => {
+  const { id } = req.body;
+  Todo.findByIdAndDelete(id)
+    .then((data) => res.sendStatus(204))
+    .catch((err) => res.sendStatus(400));
+};
