@@ -1,11 +1,19 @@
 const express = require("express");
-const { getAllTodos, addTodo, deleteTodo } = require("../controllers/api");
+const {
+  getAllTodos,
+  addTodo,
+  deleteTodo,
+  editTodo,
+} = require("../controllers/api");
+const { verify } = require("../utils/jwt-verify");
 const router = express.Router();
 
-router.get("/", getAllTodos);
+router.get("/", verify, getAllTodos);
 
-router.post("/", addTodo);
+router.post("/", verify, addTodo);
 
-router.delete("/", deleteTodo);
+router.put("/", verify, editTodo);
+
+router.delete("/", verify, deleteTodo);
 
 module.exports = router;
