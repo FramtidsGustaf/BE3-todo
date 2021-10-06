@@ -18,7 +18,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  todoLists: [{ type: Schema.Types.ObjectId }]
+  todoLists: [{ 
+    type: Schema.Types.ObjectId,
+    ref: 'Todo'
+  }]
 });
 
 module.exports = mongoose.model('User', UserSchema);
