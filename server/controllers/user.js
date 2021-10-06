@@ -14,7 +14,7 @@ exports.getAllUsers = (req, res, next) => {
     .then((data) => {
       res.json(data);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.status(400).json(err));
 };
 
 exports.createUser = async (req, res, next) => {
@@ -34,12 +34,10 @@ exports.createUser = async (req, res, next) => {
     user
       .save()
       .then((data) => {
-        console.log(data._id);
         res.status(201).json({ token: generateToken(data._id) });
       })
       .catch((err) => {
-        console.log(err);
-        res.sendStatus(400);
+        res.status(400).json(err);
       });
   });
 };
@@ -47,8 +45,7 @@ exports.createUser = async (req, res, next) => {
 exports.loginUser = (req, res, next) => {
   const { password, email } = req.body;
   User.findOne({ email }).exec((err, data) => {
-    if (err) return res.sendStatus(400);
-    console.log(data);
+    if (err) return res.status(400).json(err);
     bcrypt.compare(password, data.password, (error, match) => {
       if (error) res.status(500).json(error);
       else if (match) res.status(200).json({ token: generateToken(data._id) });
