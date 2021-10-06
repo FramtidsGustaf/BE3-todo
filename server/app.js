@@ -26,7 +26,7 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-app.use('/api', apiRouter);
+// app.use('/api', apiRouter);
 app.use('/user', userRouter);
 
 app.listen(3000);
