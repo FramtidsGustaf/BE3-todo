@@ -9,7 +9,7 @@ exports.getAllUsers = (req, res, next) => {
 }
 
 exports.createUser = (req, res, next) => {
-  //TODO encrypt password
+  //TODO encypt password
   const { fullName, displayName, password, email } = req.body
 
   const user = new User({
