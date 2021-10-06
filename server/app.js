@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const apiRouter = require('./routes/api');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -26,5 +27,6 @@ db.once('open', () => {
 });
 
 app.use('/api', apiRouter);
+app.use('/user', userRouter);
 
 app.listen(3000);
