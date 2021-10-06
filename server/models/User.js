@@ -17,11 +17,7 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
-  },
-  todoLists: [{ 
-    type: Schema.Types.ObjectId,
-    ref: 'Todo'
-  }]
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
