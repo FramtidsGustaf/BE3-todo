@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const tokenSecret = process.env.SECRET_TOKEN;
-const salt = process.env.SALT_ROUNDS;
 
 const generateToken = (user) => {
   return jwt.sign({ data: user }, tokenSecret, { expiresIn: "30m" });
