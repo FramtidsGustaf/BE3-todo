@@ -27,8 +27,8 @@ exports.createUser = async (req, res, next) => {
     displayName,
     password,
     email,
-  })
-    .save()
+  });
+  user.save()
     .then((data) => {
       res.status(201).json({ token: generateToken(data._id) });
     })
