@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const tokenSecret = process.env.SECRET_TOKEN;
-const salt = 10;
+const salt = process.env.SALT_ROUNDS;
 
 const generateToken = (user) => {
   return jwt.sign({ data: user }, tokenSecret, { expiresIn: "30m" });
@@ -46,6 +46,7 @@ exports.loginUser = (req, res, next) => {
   const { password, email } = req.body;
   User.findOne({ email }).exec((err, data) => {
     if (err) return res.status(400).json(err);
+    if (!data) return res.sendStatus(404);
     bcrypt.compare(password, data.password, (error, match) => {
       if (error) res.status(500).json(error);
       else if (match) res.status(200).json({ token: generateToken(data._id) });
