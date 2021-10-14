@@ -18,28 +18,23 @@ exports.getAllUsers = (req, res, next) => {
 };
 
 exports.createUser = async (req, res, next) => {
-  //TODO encypt password
   const { fullName, displayName, password, email } = req.body;
 
   const userExists = await User.exists({ email });
   if (userExists) return res.sendStatus(400);
-  bcrypt.hash(password, salt, (error, hash) => {
-    if (error) res.status(500).json(error);
-    const user = new User({
-      fullName,
-      displayName,
-      password: hash,
-      email,
+  const user = new User({
+    fullName,
+    displayName,
+    password,
+    email,
+  })
+    .save()
+    .then((data) => {
+      res.status(201).json({ token: generateToken(data._id) });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
     });
-    user
-      .save()
-      .then((data) => {
-        res.status(201).json({ token: generateToken(data._id) });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
-  });
 };
 
 exports.loginUser = (req, res, next) => {
