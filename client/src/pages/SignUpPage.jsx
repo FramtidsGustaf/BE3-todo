@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import AuthForm from '../components/AuthForm';
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import AuthForm from "../components/AuthForm";
+import { JwtContext } from "../context/JwtContext";
 
 const SignUpPage = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const { setToken } = useContext(JwtContext);
   const history = useHistory();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3000/user', {
-      method: 'POST',
+    const res = await fetch("http://localhost:3000/user", {
+      method: "POST",
       body: JSON.stringify(formData),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
     if (res.ok) {
       const data = await res.json();
-      localStorage.setItem('token', data.token);
-      history.push('/todos');
+      setToken(data.token);
+      localStorage.setItem("token", data.token);
+      history.push("/todos");
     }
   };
 
