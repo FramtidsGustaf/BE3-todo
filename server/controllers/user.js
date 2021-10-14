@@ -27,7 +27,8 @@ exports.createUser = async (req, res, next) => {
     password,
     email,
   });
-  user.save()
+  user
+    .save()
     .then((data) => {
       res.status(201).json({ token: generateToken(data._id) });
     })
@@ -47,4 +48,9 @@ exports.loginUser = (req, res, next) => {
       else res.status(403).json({ msg: "Wrong email or password" });
     });
   });
+};
+
+exports.verifyJWT = (req, res, next) => {
+  const id = req.user;
+  res.sendStatus(200);
 };
