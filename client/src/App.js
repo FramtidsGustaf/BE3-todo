@@ -1,10 +1,9 @@
-
+import React from 'react';
+import SignUpPage from './pages/SignUpPage';
 
 function App() {
   return (
-    <div>
-      <h1>Hejsan!</h1>
-    </div>
+      <SignUpPage />
   );
 }
 
