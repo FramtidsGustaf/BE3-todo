@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const history = useHistory();
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/user', {
+    const res = await fetch('http://localhost:3000/user', {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json' },
-    }).then((data) => console.log(data));
+    });
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem('token', data.token);
+      history.push('/todos');
+    }
   };
 
   const handleOnChange = (e) => {
@@ -18,11 +25,13 @@ const SignUpPage = () => {
   };
 
   return (
-    <AuthForm
-      handleOnSubmit={handleOnSubmit}
-      formData={formData}
-      handleOnChange={handleOnChange}
-    />
+    <>
+      <AuthForm
+        handleOnSubmit={handleOnSubmit}
+        formData={formData}
+        handleOnChange={handleOnChange}
+      />
+    </>
   );
 };
 
