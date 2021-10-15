@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
+import { verifyToken } from './utils/verifyToken';
 import { JwtContext } from "./context/JwtContext";
 import SignUpPage from "./pages/SignUpPage";
 import LogInPage from "./pages/LogInPage";
@@ -7,22 +8,15 @@ import TodoPage from "./pages/TodoPage";
 
 const App = () => {
   const [token, setToken] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
-    const storageToken = localStorage.getItem("token");
-    const verifyToken = async (token) => {
-      const res = await fetch("http://localhost:3000/user/verify-jwt", {
-        method: "POST",
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
-      if (res.ok) {
-        storageToken && setToken(storageToken);
-      }
-    };
-    storageToken && verifyToken(storageToken);
-  }, []);
+    verifyToken()
+      .then((verifiedToken) => {
+        setToken(verifiedToken);
+        if (token) history.push('/todos');
+      })
+  }, [history, token]);
 
   return (
     <div>

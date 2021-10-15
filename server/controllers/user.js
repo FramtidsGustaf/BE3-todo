@@ -52,5 +52,5 @@ exports.loginUser = (req, res, next) => {
 
 exports.verifyJWT = (req, res, next) => {
   const id = req.user;
-  res.sendStatus(200);
+  res.status(200).json({token: generateToken(id)});
 };
