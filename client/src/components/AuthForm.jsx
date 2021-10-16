@@ -31,6 +31,7 @@ function AuthForm({ handleOnSubmit, formData, handleOnChange, login }) {
           {login ? 'Log in' : 'Sign Up'}
         </Button>
       </Form>
+      {login && <Link to='/signup'>Dont have an account?</Link>}
       {!login && <Link to='/login'>Already have an account?</Link>}
     </div>
   );

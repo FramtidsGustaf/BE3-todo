@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { verifyToken } from './utils/verifyToken';
 import { JwtContext } from "./context/JwtContext";
-import SignUpPage from "./pages/SignUpPage";
-import LogInPage from "./pages/LogInPage";
+import AuthPage from "./pages/AuthPage";
 import TodoPage from "./pages/TodoPage";
 
 const App = () => {
@@ -23,7 +22,7 @@ const App = () => {
       <JwtContext.Provider value={{ token, setToken }}>
         <Switch>
           <Route path="/signup">
-            <SignUpPage />
+            <AuthPage />
           </Route>
           {token && (
             <Route path="/todos">
@@ -31,7 +30,7 @@ const App = () => {
             </Route>
           )}
           <Route path="/">
-            <LogInPage />
+            <AuthPage login />
           </Route>
         </Switch>
       </JwtContext.Provider>
