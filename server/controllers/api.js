@@ -13,6 +13,7 @@ exports.getAllTodos = (req, res, next) => {
 exports.addTodo = (req, res, next) => {
   const { todos } = req.body;
   const id = req.user;
+  console.log(id);
 
   const newTodo = new Todo({
     todos,
