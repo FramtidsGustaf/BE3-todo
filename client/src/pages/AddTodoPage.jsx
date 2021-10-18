@@ -20,7 +20,7 @@ const AddTodoPage = () => {
       },
     });
     if (res.ok) {
-      history.push('/todos');
+      history.push('/');
     } else console.log(res);
   };
 
@@ -33,7 +33,7 @@ const AddTodoPage = () => {
           <Form.Control as='textarea' rows={20} onChange={handleOnChange} />
         </Form.Group>
         <Button type='submit' variant='primary'>
-          Primary
+          Save
         </Button>
       </Form>
     </div>

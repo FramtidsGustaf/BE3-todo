@@ -17,7 +17,7 @@ const AuthPage = ({ login }) => {
     if (res.ok) {
       const data = await res.json();
       localStorage.setItem('token', data.token);
-      history.push('/todos');
+      history.push('/');
     }
   };
 
