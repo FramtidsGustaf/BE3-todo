@@ -3,13 +3,9 @@ import { Form, Button, Container } from "react-bootstrap";
 import { useHistory } from "react-router";
 
 const EditTodoPage = (props) => {
-  const [todo, setTodo] = useState(null);
+  const [todo, setTodo] = useState();
   const history = useHistory();
   const id = props.match.params.id;
-
-  const handleOnChange = (e) => {
-    setTodo(e.target.value);
-  };
 
   const fetchtodo = async () => {
     const res = await fetch(`http://localhost:3000/api/${id}`, {
@@ -18,18 +14,22 @@ const EditTodoPage = (props) => {
       },
     });
     const data = await res.json();
-    setTodo(data);
+    setTodo(data.todos);
   };
 
   useEffect(() => {
     fetchtodo();
   }, []);
 
+  const handleOnChange = (e) => {
+    setTodo(e.target.value);
+  };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch("http://localhost:3000/api", {
       method: "PUT",
-      body: JSON.stringify({ todos: todo, id: id }),
+      body: JSON.stringify({ id, todos: todo }),
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
@@ -65,7 +65,7 @@ const EditTodoPage = (props) => {
               as="textarea"
               rows={20}
               onChange={handleOnChange}
-              value={todo.todos}
+              value={todo}
             />
           )}
         </Form.Group>

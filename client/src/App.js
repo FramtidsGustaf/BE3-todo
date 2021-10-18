@@ -4,10 +4,11 @@ import AuthPage from "./pages/AuthPage";
 import TodoPage from "./pages/TodoPage";
 import AddTodoPage from "./pages/AddTodoPage";
 import EditTodoPage from "./pages/EditTodoPage";
+import { Container } from "react-bootstrap";
 
 const App = () => {
   return (
-    <div>
+    <Container>
       <Switch>
         <Route path="/edit-todo/:id" component={EditTodoPage} />
         <Route path="/add-todo">
@@ -23,7 +24,7 @@ const App = () => {
           <TodoPage />
         </Route>
       </Switch>
-    </div>
+    </Container>
   );
 };
 
