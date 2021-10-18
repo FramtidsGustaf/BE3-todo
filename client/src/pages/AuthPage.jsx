@@ -1,11 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
-import { JwtContext } from '../context/JwtContext';
 
 const AuthPage = ({ login }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const { setToken } = useContext(JwtContext);
   const history = useHistory();
   const url = 'http://localhost:3000/user';
 
@@ -18,9 +16,8 @@ const AuthPage = ({ login }) => {
     });
     if (res.ok) {
       const data = await res.json();
-      setToken(data.token);
       localStorage.setItem('token', data.token);
-      history.push('/todos');
+      history.push('/');
     }
   };
 
