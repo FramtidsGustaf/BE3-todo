@@ -4,9 +4,12 @@ const {
   addTodo,
   deleteTodo,
   editTodo,
+  getTodo,
 } = require("../controllers/api");
 const { verify } = require("../utils/jwt-verify");
 const router = express.Router();
+
+router.get("/:id", verify, getTodo);
 
 router.get("/", verify, getAllTodos);
 
