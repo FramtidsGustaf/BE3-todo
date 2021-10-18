@@ -3,3 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+.grid {
+  margin-top: 3em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3em;
+}
+.grid > a {
+  color: #000;
+  text-decoration: none;
+}

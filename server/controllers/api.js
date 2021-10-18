@@ -10,6 +10,14 @@ exports.getAllTodos = (req, res, next) => {
     .catch(() => res.sendStatus(400));
 };
 
+exports.getTodo = (req, res, next) => {
+  const { id } = req.params;
+  Todo.findById(id).exec((err, data) => {
+    if (data) return res.status(200).json(data);
+    res.sendStatus(404);
+  });
+};
+
 exports.addTodo = (req, res, next) => {
   const { todos } = req.body;
   const id = req.user;
