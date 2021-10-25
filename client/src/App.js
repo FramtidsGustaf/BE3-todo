@@ -5,12 +5,14 @@ import TodoPage from "./pages/TodoPage";
 import AddTodoPage from "./pages/AddTodoPage";
 import EditTodoPage from "./pages/EditTodoPage";
 import { Container } from "react-bootstrap";
+import TodoDetailPage from "./pages/TodoDetailPage";
 
 const App = () => {
   return (
     <Container>
       <Switch>
         <Route path="/edit-todo/:id" component={EditTodoPage} />
+        <Route path="/todo/:id" component={TodoDetailPage} />
         <Route path="/add-todo">
           <AddTodoPage />
         </Route>

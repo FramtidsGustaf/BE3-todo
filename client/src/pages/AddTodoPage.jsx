@@ -26,13 +26,15 @@ const AddTodoPage = () => {
 
   return (
     <Container>
-      <h1>Lägg till todo</h1>
+      <h1 variant="success">Lägg till todo</h1>
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Lägg till din todo här</Form.Label>
+          <Form.Label className="text-success">
+            Lägg till din todo här
+          </Form.Label>
           <Form.Control as="textarea" rows={20} onChange={handleOnChange} />
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="warning">
           Save
         </Button>
       </Form>
