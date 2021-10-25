@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useVerifyToken } from "../hooks/useVerifyToken";
 import { useFetchTodos } from "../hooks/useFetchTodos";
-import { Card, Container, Col, Row, Button } from "react-bootstrap";
+import { Card, Container, Col, Row, Button, Badge } from "react-bootstrap";
 
 const TodoPage = () => {
   const history = useHistory();
@@ -12,24 +12,42 @@ const TodoPage = () => {
   });
   const { todos } = useFetchTodos();
 
+  const onClickHandler = () => {
+    localStorage.removeItem("token");
+    history.push("/login");
+  };
+
   return (
     <Container>
-      <h1>Hej du är på todo</h1>
+      <h1 className="text-success">Hej du är på todo</h1>
       <Link to="/add-todo">
-        <Button>Lägg till todo</Button>
+        <Button variant="warning">Lägg till todo</Button>
       </Link>
+      <Button variant="danger" className="m-3" onClick={onClickHandler}>
+        Logout
+      </Button>
       <Row>
         {todos &&
           todos.map((todo) => (
             <Col className="my-3">
               <Link
-                className="col-md-4 text-decoration-none text-black"
-                to={`/edit-todo/${todo._id}`}
+                className="col-md-4 text-decoration-none"
+                to={`/todo/${todo._id}`}
               >
-                <Card className="h-100">
-                  <Card.Body className="">
+                <Card
+                  className="h-100 bg-success text-white shadow-lg"
+                  // style={{ width: "18rem" }}
+                >
+                  <Card.Body>
                     <ReactMarkdown>{todo.todos}</ReactMarkdown>
                   </Card.Body>
+                  <Card.Text className="mx-auto">
+                    {
+                      <Badge bg="dark text-warning">
+                        {new Date(todo.createdAt).toDateString()}
+                      </Badge>
+                    }
+                  </Card.Text>
                 </Card>
               </Link>
             </Col>

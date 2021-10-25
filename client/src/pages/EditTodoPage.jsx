@@ -56,20 +56,21 @@ const EditTodoPage = (props) => {
 
   return (
     <Container>
-      <h1>Lägg till todo</h1>
+      <h1 className="text-success">Lägg till todo</h1>
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Lägg till din todo här</Form.Label>
-          {todo && (
-            <Form.Control
-              as="textarea"
-              rows={20}
-              onChange={handleOnChange}
-              value={todo}
-            />
-          )}
+          <Form.Label className="text-success">
+            Lägg till din todo här
+          </Form.Label>
+          <Form.Control
+            className="bg-success text-white border-dark"
+            as="textarea"
+            rows={20}
+            onChange={handleOnChange}
+            value={todo && todo}
+          />
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="warning">
           Save
         </Button>
         <Button
