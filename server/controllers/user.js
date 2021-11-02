@@ -8,14 +8,6 @@ const generateToken = (user) => {
   return jwt.sign({data: user}, tokenSecret, {expiresIn: '30m'});
 };
 
-exports.getAllUsers = (req, res, next) => {
-  User.find()
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => res.status(400).json(err));
-};
-
 exports.createUser = async (req, res, next) => {
   const {fullName, displayName, password, email} = req.body;
 
