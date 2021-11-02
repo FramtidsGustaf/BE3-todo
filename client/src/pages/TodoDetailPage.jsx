@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Button, Container, Row, Col } from 'react-bootstrap';
+import { useFetchTodos } from '../hooks/useFetchTodos';
 
 const TodoDetailPage = (props) => {
-  const [todo, setTodo] = useState();
   const history = useHistory();
   const id = props.match.params.id;
-
-  useEffect(() => {
-    const fetchtodo = async () => {
-      const res = await fetch(`http://localhost:3000/api/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
-      const data = await res.json();
-      setTodo(data.todos);
-    };
-    fetchtodo();
-  }, [id]);
+  const { todos: todo } = useFetchTodos(id);
 
   const onClickHandler = async () => {
     const res = await fetch('http://localhost:3000/api', {
@@ -42,7 +30,7 @@ const TodoDetailPage = (props) => {
         <Row>
           <Col>
             <ReactMarkdown className='bg-success text-white p-4 rounded overflow-auto'>
-              {todo}
+              {todo.todos}
             </ReactMarkdown>
             <div>
               <Link to={`/edit-todo/${id}`} className='btn btn-warning'>

@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 
-export const useFetchTodos = () => {
+export const useFetchTodos = (id) => {
   const [todos, setTodos] = useState(null);
   const storageToken = localStorage.getItem('token');
+  let endpoint;
+
+  if (id) endpoint = `http://localhost:3000/api/${id}`;
+  else endpoint = 'http://localhost:3000/api';
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const res = await fetch('http://localhost:3000/api', {
+      const res = await fetch(endpoint, {
         headers: {
           Authorization: storageToken,
         },
@@ -17,7 +21,7 @@ export const useFetchTodos = () => {
       }
     };
     fetchTodos();
-  }, [storageToken]);
+  }, [storageToken, endpoint]);
 
   return { todos, setTodos };
 };

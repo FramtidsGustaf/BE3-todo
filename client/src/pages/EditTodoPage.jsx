@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import TodoForm from '../components/TodoForm';
+import { useFetchTodos } from '../hooks/useFetchTodos';
 
 const EditTodoPage = (props) => {
-  const [todo, setTodo] = useState();
-  const history = useHistory();
   const id = props.match.params.id;
-
-  useEffect(() => {
-    const fetchTodo = async () => {
-      const res = await fetch(`http://localhost:3000/api/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
-      const data = await res.json();
-      setTodo(data.todos);
-    };
-    fetchTodo();
-  }, [id]);
+  const { todos: todo } = useFetchTodos(id);
+  const history = useHistory();
 
   const onClickHandler = async () => {
     const res = await fetch('http://localhost:3000/api', {
@@ -37,7 +25,7 @@ const EditTodoPage = (props) => {
 
   return (
     <Container>
-      {todo && <TodoForm fetchedTodo={todo} todoId={id} />}
+      {todo && <TodoForm fetchedTodo={todo.todos} todoId={id} />}
       <Button
         className='mt-2'
         type='button'
