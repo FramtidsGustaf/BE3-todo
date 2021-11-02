@@ -1,17 +1,17 @@
-const Todo = require("../models/Todo");
+const Todo = require('../models/Todo');
 
 exports.getAllTodos = (req, res, next) => {
   const id = req.user;
-  Todo.find({ user: id })
-    .then((data) => {
-      if (data.length > 0) return res.status(200).json(data);
-      res.sendStatus(404);
-    })
-    .catch(() => res.sendStatus(400));
+  Todo.find({user: id})
+      .then((data) => {
+        if (data.length > 0) return res.status(200).json(data);
+        res.sendStatus(404);
+      })
+      .catch(() => res.sendStatus(400));
 };
 
 exports.getTodo = (req, res, next) => {
-  const { id } = req.params;
+  const {id} = req.params;
   Todo.findById(id).exec((err, data) => {
     if (data) return res.status(200).json(data);
     res.sendStatus(404);
@@ -19,7 +19,7 @@ exports.getTodo = (req, res, next) => {
 };
 
 exports.addTodo = (req, res, next) => {
-  const { todos } = req.body;
+  const {todos} = req.body;
   const id = req.user;
   console.log(id);
 
@@ -28,21 +28,21 @@ exports.addTodo = (req, res, next) => {
     user: id,
   });
   newTodo
-    .save()
-    .then(() => res.sendStatus(201))
-    .catch(() => res.sendStatus(400));
+      .save()
+      .then(() => res.sendStatus(201))
+      .catch(() => res.sendStatus(400));
 };
 
 exports.deleteTodo = (req, res, next) => {
-  const { id } = req.body;
+  const {id} = req.body;
   Todo.findByIdAndDelete(id)
-    .then(() => res.sendStatus(204))
-    .catch(() => res.sendStatus(400));
+      .then(() => res.sendStatus(204))
+      .catch(() => res.sendStatus(400));
 };
 
 exports.editTodo = (req, res, next) => {
-  const { id, todos } = req.body;
-  Todo.findByIdAndUpdate(id, { todos })
-    .then(() => res.sendStatus(204))
-    .catch(() => res.sendStatus(400));
+  const {id, todos} = req.body;
+  Todo.findByIdAndUpdate(id, {todos})
+      .then(() => res.sendStatus(204))
+      .catch(() => res.sendStatus(400));
 };

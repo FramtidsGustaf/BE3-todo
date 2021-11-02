@@ -1,87 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Container } from "react-bootstrap";
-import { useHistory } from "react-router";
+import React from 'react';
+import {useParams} from 'react-router-dom';
+import {Button, Container} from 'react-bootstrap';
+import {useHistory} from 'react-router';
+import TodoForm from '../components/TodoForm';
+import {useFetchTodos} from '../hooks/useFetchTodos';
 
-const EditTodoPage = (props) => {
-  const [todo, setTodo] = useState();
+const EditTodoPage = () => {
+  const {id} = useParams();
+  const {todos: todo} = useFetchTodos(id);
   const history = useHistory();
-  const id = props.match.params.id;
-
-  const fetchtodo = async () => {
-    const res = await fetch(`http://localhost:3000/api/${id}`, {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-    const data = await res.json();
-    setTodo(data.todos);
-  };
-
-  useEffect(() => {
-    fetchtodo();
-  }, []);
-
-  const handleOnChange = (e) => {
-    setTodo(e.target.value);
-  };
-
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    const res = await fetch("http://localhost:3000/api", {
-      method: "PUT",
-      body: JSON.stringify({ id, todos: todo }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-    if (res.ok) {
-      history.push("/");
-    } else console.log(res);
-  };
 
   const onClickHandler = async () => {
-    const res = await fetch("http://localhost:3000/api", {
-      method: "DELETE",
-      body: JSON.stringify({ id }),
+    const res = await fetch('http://localhost:3000/api', {
+      method: 'DELETE',
+      body: JSON.stringify({id}),
       headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token'),
       },
     });
     if (res.ok) {
-      history.push("/");
+      history.push('/');
     } else console.log(res);
   };
 
   return (
     <Container>
-      <h1 className="text-success">Lägg till todo</h1>
-      <Form onSubmit={handleOnSubmit}>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label className="text-success">
-            Lägg till din todo här
-          </Form.Label>
-          <Form.Control
-            className="bg-success text-white border-dark"
-            as="textarea"
-            rows={20}
-            onChange={handleOnChange}
-            value={todo && todo}
-          />
-        </Form.Group>
-        <Button type="submit" variant="warning">
-          Save
-        </Button>
-        <Button
-          className="m-2"
-          type="button"
-          variant="danger"
-          onClick={onClickHandler}
-        >
-          Delete
-        </Button>
-      </Form>
+      {todo && <TodoForm fetchedTodo={todo.todos} todoId={id} />}
+      <Button
+        className='mt-2'
+        type='button'
+        variant='danger'
+        onClick={onClickHandler}
+      >
+        Delete
+      </Button>
     </Container>
   );
 };
