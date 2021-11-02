@@ -9,7 +9,7 @@ const AuthPage = ({login}) => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${BASE_URL}${login ? '/login' : ''}`, {
+    const res = await fetch(`${BASE_URL}user/${login ? 'login' : ''}`, {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: {'Content-Type': 'application/json'},
