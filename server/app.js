@@ -8,7 +8,10 @@ const userRouter = require('./routes/user');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://steffestodo.herokuapp.com/',
+},
+));
 
 app.use(express.urlencoded({extended: true}));
 
