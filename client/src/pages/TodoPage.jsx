@@ -40,7 +40,7 @@ const TodoPage = () => {
                   <Card.Text className='mx-auto'>
                     {
                       <Badge bg='dark text-warning'>
-                        {new Date(todo.createdAt).toDateString()}
+                        {new Date(todo.updatedAt).toDateString()}
                       </Badge>
                     }
                   </Card.Text>
