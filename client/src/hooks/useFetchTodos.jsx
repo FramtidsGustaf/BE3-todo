@@ -1,12 +1,13 @@
 import {useState, useEffect} from 'react';
+import BASE_URL from '../constants';
 
 export const useFetchTodos = (id) => {
   const [todos, setTodos] = useState(null);
   const storageToken = localStorage.getItem('token');
   let endpoint;
 
-  if (id) endpoint = `http://localhost:3000/api/${id}`;
-  else endpoint = 'http://localhost:3000/api';
+  if (id) endpoint = `${BASE_URL}api/${id}`;
+  else endpoint = `${BASE_URL}api`;
 
   useEffect(() => {
     const fetchTodos = async () => {

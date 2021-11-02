@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router';
 import {Form, Button} from 'react-bootstrap';
+import BASE_URL from '../constants';
 
 const TodoForm = ({fetchedTodo, todoId}) => {
   const history = useHistory();
@@ -21,7 +22,7 @@ const TodoForm = ({fetchedTodo, todoId}) => {
     const body = id ?
       JSON.stringify({id, todos: todo}) :
       JSON.stringify({todos: todo});
-    const res = await fetch('http://localhost:3000/api', {
+    const res = await fetch(`${BASE_URL}api`, {
       method,
       body,
       headers: {

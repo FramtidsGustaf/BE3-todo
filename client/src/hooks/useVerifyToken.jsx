@@ -1,6 +1,8 @@
+import BASE_URL from '../constants';
+
 export const useVerifyToken = async () => {
   const storageToken = localStorage.getItem('token');
-  const res = await fetch('http://localhost:3000/user/verify-jwt', {
+  const res = await fetch(`${BASE_URL}user/verify-jwt`, {
     method: 'POST',
     headers: {
       Authorization: storageToken,

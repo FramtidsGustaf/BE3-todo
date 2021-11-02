@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
+import BASE_URL from '../constants';
 
 const AuthPage = ({login}) => {
   const [formData, setFormData] = useState({email: '', password: ''});
   const history = useHistory();
-  const url = 'http://localhost:3000/user';
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${url}${login ? '/login' : ''}`, {
+    const res = await fetch(`${BASE_URL}${login ? '/login' : ''}`, {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: {'Content-Type': 'application/json'},
