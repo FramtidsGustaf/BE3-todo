@@ -1,11 +1,11 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import AuthPage from "./pages/AuthPage";
-import TodoPage from "./pages/TodoPage";
-import AddTodoPage from "./pages/AddTodoPage";
-import EditTodoPage from "./pages/EditTodoPage";
-import { Container } from "react-bootstrap";
-import TodoDetailPage from "./pages/TodoDetailPage";
+import React from 'react';
+import {Switch, Route} from 'react-router-dom';
+import AuthPage from './pages/AuthPage';
+import TodoPage from './pages/TodoPage';
+import AddTodoPage from './pages/AddTodoPage';
+import EditTodoPage from './pages/EditTodoPage';
+import {Container} from 'react-bootstrap';
+import TodoDetailPage from './pages/TodoDetailPage';
 
 const App = () => {
   return (
