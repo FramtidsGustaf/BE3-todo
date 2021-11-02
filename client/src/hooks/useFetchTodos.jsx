@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 
 export const useFetchTodos = (id) => {
   const [todos, setTodos] = useState(null);
@@ -23,5 +23,5 @@ export const useFetchTodos = (id) => {
     fetchTodos();
   }, [storageToken, endpoint]);
 
-  return { todos, setTodos };
+  return {todos, setTodos};
 };

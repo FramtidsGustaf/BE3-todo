@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { Form, Button } from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router';
+import {Form, Button} from 'react-bootstrap';
 
-const TodoForm = ({ fetchedTodo, todoId }) => {
+const TodoForm = ({fetchedTodo, todoId}) => {
   const history = useHistory();
   const [todo, setTodo] = useState('');
   const method = fetchedTodo ? 'PUT' : 'POST';
@@ -18,15 +18,15 @@ const TodoForm = ({ fetchedTodo, todoId }) => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const body = id
-      ? JSON.stringify({ id, todos: todo })
-      : JSON.stringify({ todos: todo });
+    const body = id ?
+      JSON.stringify({id, todos: todo}) :
+      JSON.stringify({todos: todo});
     const res = await fetch('http://localhost:3000/api', {
       method,
       body,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
+        'Authorization': localStorage.getItem('token'),
       },
     });
     if (res.ok) {

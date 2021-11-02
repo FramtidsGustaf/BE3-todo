@@ -1,21 +1,21 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { Button, Container, Row, Col } from 'react-bootstrap';
-import { useFetchTodos } from '../hooks/useFetchTodos';
+import {Button, Container, Row, Col} from 'react-bootstrap';
+import {useFetchTodos} from '../hooks/useFetchTodos';
 
 const TodoDetailPage = (props) => {
   const history = useHistory();
   const id = props.match.params.id;
-  const { todos: todo } = useFetchTodos(id);
+  const {todos: todo} = useFetchTodos(id);
 
   const onClickHandler = async () => {
     const res = await fetch('http://localhost:3000/api', {
       method: 'DELETE',
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({id}),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
+        'Authorization': localStorage.getItem('token'),
       },
     });
     if (res.ok) {
@@ -29,7 +29,8 @@ const TodoDetailPage = (props) => {
       {todo && (
         <Row>
           <Col>
-            <ReactMarkdown className='bg-success text-white p-4 rounded overflow-auto'>
+            <ReactMarkdown
+              className='bg-success text-white p-4 rounded overflow-auto'>
               {todo.todos}
             </ReactMarkdown>
             <div>

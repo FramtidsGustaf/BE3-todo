@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {Form, Button} from 'react-bootstrap';
 
-function AuthForm({ handleOnSubmit, formData, handleOnChange, login }) {
+function AuthForm({handleOnSubmit, formData, handleOnChange, login}) {
   return (
     <div className='w-25 position-absolute top-50 start-50 translate-middle'>
       <h1 className='text-success mb-4'>{login ? 'Login' : 'Signup'}</h1>

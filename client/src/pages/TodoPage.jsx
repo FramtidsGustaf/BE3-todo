@@ -1,16 +1,16 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { useVerifyToken } from '../hooks/useVerifyToken';
-import { useFetchTodos } from '../hooks/useFetchTodos';
-import { Card, Container, Col, Row, Button, Badge } from 'react-bootstrap';
+import {useVerifyToken} from '../hooks/useVerifyToken';
+import {useFetchTodos} from '../hooks/useFetchTodos';
+import {Card, Container, Col, Row, Button, Badge} from 'react-bootstrap';
 
 const TodoPage = () => {
   const history = useHistory();
   useVerifyToken().then((res) => {
     if (res === -1) history.push('/login');
   });
-  const { todos } = useFetchTodos();
+  const {todos} = useFetchTodos();
 
   const onClickHandler = () => {
     localStorage.removeItem('token');

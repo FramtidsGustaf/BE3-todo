@@ -1,21 +1,22 @@
 import React from 'react';
-import { Button, Container } from 'react-bootstrap';
-import { useHistory } from 'react-router';
+import {useParams} from 'react-router-dom';
+import {Button, Container} from 'react-bootstrap';
+import {useHistory} from 'react-router';
 import TodoForm from '../components/TodoForm';
-import { useFetchTodos } from '../hooks/useFetchTodos';
+import {useFetchTodos} from '../hooks/useFetchTodos';
 
-const EditTodoPage = (props) => {
-  const id = props.match.params.id;
-  const { todos: todo } = useFetchTodos(id);
+const EditTodoPage = () => {
+  const {id} = useParams();
+  const {todos: todo} = useFetchTodos(id);
   const history = useHistory();
 
   const onClickHandler = async () => {
     const res = await fetch('http://localhost:3000/api', {
       method: 'DELETE',
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({id}),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
+        'Authorization': localStorage.getItem('token'),
       },
     });
     if (res.ok) {
