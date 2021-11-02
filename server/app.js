@@ -29,4 +29,7 @@ db.once('open', () => {
 app.use('/api', apiRouter);
 app.use('/user', userRouter);
 
+module.exports = app;
+
 app.listen(3000);
+

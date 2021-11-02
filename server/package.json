@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon app",
     "eslint-fix": "eslint . --fix"
   },
@@ -21,6 +21,8 @@
   "devDependencies": {
     "eslint": "^8.1.0",
     "eslint-config-google": "^0.14.0",
-    "nodemon": "^2.0.13"
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.13",
+    "supertest": "^6.1.6"
   }
 }
