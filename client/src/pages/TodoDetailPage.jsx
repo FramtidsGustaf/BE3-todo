@@ -1,28 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import {Button, Container, Row, Col} from 'react-bootstrap';
-import {useFetchTodos} from '../hooks/useFetchTodos';
-import BASE_URL from '../constants';
-
+import {useVerifyToken} from '../hooks/useVerifyToken';
+import {fetchTodo, deleteTodo} from '../api/api';
 
 const TodoDetailPage = (props) => {
+  const [todo, setTodo] = useState(null);
   const history = useHistory();
   const id = props.match.params.id;
-  const {todos: todo} = useFetchTodos(id);
+
+  useEffect(() => {
+    useVerifyToken().then((res) => {
+      if (res === -1) history.push('/login');
+    });
+    fetchTodo(id).then((data) => setTodo(data));
+  }, []);
 
   const onClickHandler = async () => {
-    const res = await fetch(`${BASE_URL}api`, {
-      method: 'DELETE',
-      body: JSON.stringify({id}),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token'),
-      },
-    });
-    if (res.ok) {
-      history.push('/');
-    } else console.log(res);
+    const res = await deleteTodo(id);
+    if (res) history.push('/');
   };
 
   return (

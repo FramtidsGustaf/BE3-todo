@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import {useVerifyToken} from '../hooks/useVerifyToken';
-import {useFetchTodos} from '../hooks/useFetchTodos';
+import {fetchTodos} from '../api/api';
 import {
   Card,
   Container,
@@ -15,13 +15,19 @@ import {
 
 const TodoPage = () => {
   const [loading, setLoading] = useState(true);
+  const [todos, setTodos] = useState(null);
   const history = useHistory();
-  useVerifyToken().then((res) => {
-    if (res === -1) history.push('/login');
-    else setLoading(false);
-  });
 
-  const {todos} = useFetchTodos();
+  useEffect(() => {
+    fetchTodos().then((data) => {
+      setTodos(data);
+    });
+
+    useVerifyToken().then((res) => {
+      if (res === -1) history.push('/login');
+      else setLoading(false);
+    });
+  }, []);
 
   const onClickHandler = () => {
     localStorage.removeItem('token');
@@ -39,7 +45,7 @@ const TodoPage = () => {
             Logout
           </Button>
           <Row>
-            {todos &&
+            {todos ? (
               todos.map((todo) => (
                 <Col className='my-3' key={todo._id}>
                   <Link
@@ -60,7 +66,8 @@ const TodoPage = () => {
                     </Card>
                   </Link>
                 </Col>
-              ))}
+              ))
+            ) : (<h2 className="text-success">Inga todos ännu!</h2>)}
           </Row>
         </>
       ) : (

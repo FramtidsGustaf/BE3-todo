@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router';
 import {Form, Button} from 'react-bootstrap';
-import BASE_URL from '../constants';
+import {addTodo, editTodo} from '../api/api';
 
 const TodoForm = ({fetchedTodo, todoId}) => {
   const history = useHistory();
   const [todo, setTodo] = useState('');
-  const method = fetchedTodo ? 'PUT' : 'POST';
   const id = todoId ?? false;
 
   useEffect(() => {
@@ -19,20 +18,13 @@ const TodoForm = ({fetchedTodo, todoId}) => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const body = id ?
-      JSON.stringify({id, todos: todo}) :
-      JSON.stringify({todos: todo});
-    const res = await fetch(`${BASE_URL}api`, {
-      method,
-      body,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token'),
-      },
-    });
-    if (res.ok) {
-      history.push('/');
-    } else console.log(res);
+    if (id) {
+      const res = await editTodo({id, todos: todo});
+      if (res) history.push('/');
+    } else {
+      const res = await addTodo({todos: todo});
+      if (res) history.push('/');
+    }
   };
 
   return (
