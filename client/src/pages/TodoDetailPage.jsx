@@ -3,6 +3,8 @@ import {useHistory, Link} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import {Button, Container, Row, Col} from 'react-bootstrap';
 import {useFetchTodos} from '../hooks/useFetchTodos';
+import BASE_URL from '../constants';
+
 
 const TodoDetailPage = (props) => {
   const history = useHistory();
@@ -10,7 +12,7 @@ const TodoDetailPage = (props) => {
   const {todos: todo} = useFetchTodos(id);
 
   const onClickHandler = async () => {
-    const res = await fetch('http://localhost:3000/api', {
+    const res = await fetch(`${BASE_URL}api`, {
       method: 'DELETE',
       body: JSON.stringify({id}),
       headers: {

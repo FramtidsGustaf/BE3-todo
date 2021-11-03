@@ -4,6 +4,7 @@ import {Button, Container} from 'react-bootstrap';
 import {useHistory} from 'react-router';
 import TodoForm from '../components/TodoForm';
 import {useFetchTodos} from '../hooks/useFetchTodos';
+import BASE_URL from '../constants';
 
 const EditTodoPage = () => {
   const {id} = useParams();
@@ -11,7 +12,7 @@ const EditTodoPage = () => {
   const history = useHistory();
 
   const onClickHandler = async () => {
-    const res = await fetch('http://localhost:3000/api', {
+    const res = await fetch(`${BASE_URL}api`, {
       method: 'DELETE',
       body: JSON.stringify({id}),
       headers: {
